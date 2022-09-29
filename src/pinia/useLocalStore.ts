@@ -17,6 +17,13 @@ export const useLocalStore = defineStore("local", {
     getToken(){
       const token:any = localStorage.getItem("token") || ""
       return token
+    },
+    getChatData(){
+      const data:any = localStorage.getItem("data") || ""
+      return data
+    },
+    setChatData(res:any){
+      localStorage.setItem("data", JSON.stringify(res))
     }
   }
 })

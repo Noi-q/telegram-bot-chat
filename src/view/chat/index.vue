@@ -1,10 +1,13 @@
 <script lang="ts" setup>
 import {ref, onMounted} from "vue";
-import {login} from "../../api/user";
+import {getupdates} from "@/api/bot";
 import {RouteParamsRaw, useRouter} from "vue-router";
+import {useLocalStore} from "@/pinia/useLocalStore";
+import filter from "@/tools/data-filter";
 
 
 
+const localStore = useLocalStore()
 const router = useRouter()
 const content = ref()
 const loading = ref(true)
@@ -26,7 +29,6 @@ const formatDate = (item:number)=>{
 }
 
 const goChat = (item:RouteParamsRaw)=>{
-  console.log(item)
   router.push({
     path:"/user",
     query:{
@@ -36,16 +38,26 @@ const goChat = (item:RouteParamsRaw)=>{
 }
 
 onMounted(()=>{
+  const data = localStore.getChatData()
   const token = localStorage.getItem("token")
-  login(`${token}`,{}).then(
-    (res:any) => {
-      content.value = res.result
-      loading.value = false
-    },
-    (err:any) => {
-      return err
-    }
-  )
+  if(data === ""){
+    getupdates(`${token}`,{}).then(
+      (res:any) => {
+        const value = filter(res.result)
+        content.value = value
+        loading.value = false
+        localStore.setChatData(res.result)
+      },
+      (err:any) => {
+        return err
+      }
+    )
+  }else{
+    loading.value = false
+    const value = filter(JSON.parse(data))
+    content.value = value
+  }
+
 })
 </script>
 

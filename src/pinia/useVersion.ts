@@ -5,7 +5,7 @@ export const useVersionStore = defineStore("version", {
   state:()=>{
     return {
       version:"1.0.1",
-      identification:9,
+      identification:0, // 9 || 0
       device:1231235435
     }
   },

@@ -3,8 +3,8 @@ import {ref, onMounted} from "vue"
 import {useRouter} from "vue-router";
 import {useUserStore} from "@/pinia/useUserStore";
 import {useLocalStore} from "@/pinia/useLocalStore";
-import {login} from "@/api/user"
 import {Notify} from "vant";
+import {getMe} from "@/api/bot";
 
 const userStore = useUserStore()
 const localStore = useLocalStore()
@@ -14,7 +14,7 @@ const loading = ref(false)
 
 const submit = ()=>{
   loading.value = true
-  login(`${token.value}`,{}).then(
+  getMe(`${token.value}`,{}).then(
     (res:any) =>{
       if(res.ok === true){
         Notify({ type: 'success', message: '登录成功!' });

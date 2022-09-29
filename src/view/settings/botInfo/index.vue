@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import {onMounted, reactive, ref} from "vue";
+import {onMounted, ref} from "vue";
 import {getMe} from "@/api/bot";
 import {useLocalStore} from "@/pinia/useLocalStore";
 import {storeToRefs} from "pinia";
@@ -82,7 +82,6 @@ onMounted(()=>{
         </van-cell-group>
       </div>
     </div>
-
   </div>
 </template>
 

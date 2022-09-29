@@ -1,6 +1,8 @@
 import {createRouter, createWebHistory, RouteRecordRaw} from 'vue-router'
 import Layout from "../layout/index.vue"
 import syncRoutes from "./syncRoutes";
+import updateMessage from "@/plugins/bridging";
+import {Dialog} from "vant";
 
 const defaultRoutes:RouteRecordRaw[] = [
   {
@@ -33,6 +35,16 @@ const defaultRoutes:RouteRecordRaw[] = [
     ]
   },
   {
+    path:"/groups",
+    component:Layout,
+    children:[
+      {
+        path:"/groups",
+        component:()=>import("@/view/groups/index.vue")
+      }
+    ]
+  },
+  {
     path:"/settings",
     component:Layout,
     children:[
@@ -59,6 +71,26 @@ router.beforeEach((to, from)=>{
     }else{
       return true
     }
+  }
+  if(to.path === "/chat" || to.path === "/settings"){
+    updateMessage(token).then(
+      res => {
+        localStorage.setItem("data", JSON.stringify(res.result))
+      },
+      err => {
+        if(err === "404"){
+          Dialog({
+            title:"提示",
+            message:"token失效，点击重新登录!",
+            showCancelButton:false
+          }).then(()=>{
+            router.push({
+              path:"/login"
+            })
+          }).catch(()=>{})
+        }
+      }
+    )
   }
 })
 
