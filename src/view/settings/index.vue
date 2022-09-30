@@ -7,6 +7,8 @@ import {useVersionStore} from "@/pinia/useVersion";
 import {onMounted, ref, watch} from 'vue'
 import { colorEvent } from 'v3-color-picker';
 import {storeToRefs} from "pinia";
+import {getMe} from "@/api/bot";
+
 
 
 interface infoType {
@@ -97,7 +99,6 @@ watch(()=>colorOptions.value.value,(n, o)=>{
   setColor()
 })
 
-import {getMe} from "@/api/bot";
 
 
 onMounted(()=>{

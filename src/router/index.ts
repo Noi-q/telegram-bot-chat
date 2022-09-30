@@ -72,7 +72,7 @@ router.beforeEach((to, from)=>{
       return true
     }
   }
-  if(to.path === "/chat" || to.path === "/settings"){
+  if(to.path === "/chat" || to.path === "/settings" || to.path === "/groups"){
     updateMessage(token).then(
       res => {
         localStorage.setItem("data", JSON.stringify(res.result))

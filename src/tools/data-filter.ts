@@ -1,3 +1,4 @@
+import {item} from "@/tools/groups-item";
 
 const filter = (data:[])=>{
   const filterData:any = []
@@ -16,7 +17,8 @@ const groupFilter = (data:[])=>{
       filterData.push(e)
     }
   })
-  return filterData
+  localStorage.setItem("groups", JSON.stringify(filterData))
+  return item(filterData)
 }
 
-export default filter
+export {filter,groupFilter}

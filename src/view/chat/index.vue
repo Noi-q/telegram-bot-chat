@@ -3,7 +3,7 @@ import {ref, onMounted} from "vue";
 import {getupdates} from "@/api/bot";
 import {RouteParamsRaw, useRouter} from "vue-router";
 import {useLocalStore} from "@/pinia/useLocalStore";
-import filter from "@/tools/data-filter";
+import {filter} from "@/tools/data-filter";
 
 
 
