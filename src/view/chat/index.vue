@@ -6,7 +6,6 @@ import {useLocalStore} from "@/pinia/useLocalStore";
 import {filter} from "@/tools/data-filter";
 
 
-
 const localStore = useLocalStore()
 const router = useRouter()
 const content = ref()
@@ -68,17 +67,38 @@ onMounted(()=>{
   <van-cell
     v-for="item in content"
     :key="item"
-    :title="item.message.chat.first_name"
-    :value="item.message.text"
-    :label="formatDate(item.message.date)"
     @click="goChat(item)"
-  />
+    center
+  >
+    <template #title>
+      <span class="title">{{item.message === undefined ? "" : item.message.chat.first_name}}</span>
+    </template>
+    <template #value>
+      <div class="content">
+        <span>{{item.message === undefined ? "" : item.message.text}}</span>
+      </div>
+    </template>
+    <template #label>
+      <span>{{formatDate(item.message === undefined ? "" : item.message.date)}}</span>
+    </template>
+  </van-cell>
 </template>
 
 <style lang="less" scoped>
+  .title{
+    font-weight: 600;
+  }
   .loading{
     display: flex;
     flex-direction: row;
     justify-content: center;
+  }
+  .content{
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    span{
+      color:gray;
+    }
   }
 </style>

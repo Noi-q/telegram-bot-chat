@@ -6,4 +6,6 @@
 :root{
   --van-nav-bar-background-color: var(--van-nav-bar-background-color) !important;
   --van-nav-bar-title-text-color: #fff !important;
+  --van-tabbar-background-color: var(--van-nav-bar-background-color) !important;
+  --van-tabbar-item-text-color: white !important;
 }

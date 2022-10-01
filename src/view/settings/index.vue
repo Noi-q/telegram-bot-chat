@@ -36,7 +36,7 @@ const localStore = useLocalStore()
 const userStore = useUserStore()
 const versionStore = useVersionStore()
 const {token} = storeToRefs(localStore)
-const {version, identification, device} = storeToRefs(versionStore)
+const {version, identification, device, privacy} = storeToRefs(versionStore)
 const colorOptions:any = ref({
   value: "rgba(255,0,0,0.5)",
   btn: true,
@@ -45,6 +45,7 @@ const colorOptions:any = ref({
 });
 const status = ref(false)
 const showShare = ref(false)
+const showAuthor = ref(false)
 const robotInfo = ref(false)
 const options = [
   [
@@ -66,6 +67,22 @@ const logout = ()=>{
     })
   }).catch(()=>{})
 }
+
+
+
+const handlePrivacy = ()=>{
+  Dialog({
+    title:"隐私政策",
+    message:privacy.value,
+    confirmButtonColor:"green",
+    allowHtml:true
+  })
+}
+
+const handleAuthor = ()=>{
+  showAuthor.value = true
+}
+
 
 const botInfo = ()=>{
   router.push({
@@ -133,6 +150,52 @@ onMounted(()=>{
     @select="selectShare"
   />
 
+  <van-popup
+    v-model:show="showAuthor"
+    closeable
+    round
+    position="bottom"
+    :style="{ height: '80%' }"
+  >
+    <br/><br/>
+    <div class="author">
+      <ul class="author-box">
+        <li class="box-item">
+          <img class="avatar" src="https://avatars.githubusercontent.com/u/76736117?v=4" alt="">
+        </li>
+        <li class="box-item">
+          <span>Author :</span>
+          <a href="https://github.com/Noi-q">&nbsp;Noi-q</a>
+        </li>
+        <li class="box-item">
+          <span>Email :</span>
+          <a>&nbsp;noi.vcal@gmail.com</a>
+        </li>
+        <li class="box-item">
+          <span>Github :</span>
+          <a href="https://github.com/Noi-q">&nbsp;https://github.com/Noi-q</a>
+        </li>
+        <li class="box-item">
+          <span>开源地址 :</span>
+          <a href="https://github.com/Noi-q/telegram-bot-chat">&nbsp;telegram-bot-chat(点我)</a>
+        </li>
+        <li class="box-item">
+          <span>官方频道 :</span>
+          <a href="https://t.me/tg_bot_chat">&nbsp;加入频道(点我)</a>
+        </li>
+        <li class="box-item">
+          <span>付费版购买地址 :</span>
+        </li>
+        <li class="box-item">
+          <span>都来了要不打赏作者一杯咖啡?</span>
+        </li>
+        <li class="box-item">
+          <img class="zfb" src="../../assets/zfb.jpg" alt="">
+        </li>
+      </ul>
+    </div>
+  </van-popup>
+
   <van-action-sheet v-model:show="robotInfo" title="Robot information">
     <van-cell-group>
       <van-cell title="机器人名字" >
@@ -173,7 +236,7 @@ onMounted(()=>{
     </van-cell-group>
   </van-action-sheet>
 
-  <van-cell-group inset style="margin-top: 20px;">
+  <van-cell-group inset style="margin-top: 20px;" class="set-title">
     <van-cell title="当前登录状态(Current login status)">
       <template #right-icon>
         <div class="tag" :style="{backgroundColor:status === true ? '#07c160' : 'red'}"></div>
@@ -187,23 +250,23 @@ onMounted(()=>{
     </van-cell>
   </van-cell-group>
 
-  <van-cell-group inset style="margin-top: 20px;">
+  <van-cell-group inset style="margin-top: 20px;" class="set-title">
     <van-cell title="导出记录" is-link />
     <van-cell title="指令列表" is-link />
     <van-cell title="导入插件" is-link />
     <van-cell title="插件列表" is-link />
   </van-cell-group>
 
-  <van-cell-group inset style="margin-top: 20px;">
+  <van-cell-group inset style="margin-top: 20px;" class="set-title">
     <van-cell title="分享应用(Sharing apps)" is-link @click="handleShare"/>
-    <van-cell title="隐私政策(Privacy Policy)" is-link />
-    <van-cell title="关于作者(About the author)" is-link />
-    <van-cell title="官方频道(Official channel)" is-link />
+    <van-cell title="隐私政策(Privacy Policy)" is-link @click="handlePrivacy"/>
+    <van-cell title="关于作者(About the author)" is-link @click="handleAuthor"/>
+    <van-cell title="官方频道(Official channel)" is-link url="https://t.me/tg_bot_chat"/>
     <van-cell title="版本(Version)" :value="version" />
   </van-cell-group>
 
   <div style="margin-top: 20px;">
-    <van-cell-group inset>
+    <van-cell-group inset class="set-title">
       <van-cell title="退出登录(Log Out)" is-link @click="logout"></van-cell>
     </van-cell-group>
     <span class="version">{{identification === 9 ? "付费版" : "免费版"}}</span>
@@ -212,6 +275,41 @@ onMounted(()=>{
 </template>
 
 <style lang="less" scoped>
+  .author{
+    padding: 20px;
+    .author-box{
+      display: flex;
+      flex-direction: column;
+      .box-item{
+        display: flex;
+        flex-direction: row;
+        font-style: italic;
+        line-height: 30px;
+        span{
+          font-weight: bold;
+          font-style: italic;
+          font-size: 1.1em;
+        }
+        .avatar{
+          width: 20%;
+          height: 20%;
+          margin: 0 auto;
+          border-radius: 50%;
+        }
+        .zfb{
+          width: 70%;
+        }
+        a{
+          font-weight: bold;
+          font-size: 1.1em;
+        }
+      }
+    }
+  }
+  .set-title{
+    font-weight: 600;
+    font-style: italic;
+  }
   .tag{
     width: 20px;
     height: 20px;

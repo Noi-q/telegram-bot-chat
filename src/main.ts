@@ -4,6 +4,7 @@ import App from './App.vue'
 import router from "./router";
 import { createPinia } from "pinia";
 import { Notify } from 'vant';
+import { Toast } from 'vant';
 import V3ColorPicker from "v3-color-picker"
 import piniaPluginPersistedstate from 'pinia-plugin-persistedstate'
 
@@ -13,6 +14,7 @@ pinia.use(piniaPluginPersistedstate)
 
 createApp(App)
   .use(Notify)
+  .use(Toast)
   .use(V3ColorPicker)
   .use(router)
   .use(pinia)

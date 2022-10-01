@@ -26,8 +26,9 @@ const active = ref("0");
     :placeholder="true"
     :route="true"
     active-color="#000"
+    :border="false"
   >
-    <van-tabbar-item name="0" icon="chat-o" to="/chat" :replace="true">聊天</van-tabbar-item>
+    <van-tabbar-item name="0" icon="chat-o" to="/chat" :replace="true">私人</van-tabbar-item>
     <van-tabbar-item name="1" icon="friends-o" to="/groups" :replace="true">群组</van-tabbar-item>
     <van-tabbar-item name="2" icon="setting-o" to="/settings" :replace="true">设置</van-tabbar-item>
   </van-tabbar>

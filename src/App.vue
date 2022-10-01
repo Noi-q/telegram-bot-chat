@@ -3,6 +3,7 @@
 // Check out https://vuejs.org/api/sfc-script-setup.html#script-setup
 import 'vant/es/notify/style';
 import 'vant/es/dialog/style';
+import 'vant/es/toast/style';
 
 const bodyColor:any = localStorage.getItem("body") || ""
 
