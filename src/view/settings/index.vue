@@ -48,11 +48,13 @@ const showShare = ref(false)
 const showAuthor = ref(false)
 const robotInfo = ref(false)
 const connectStatus = ref(false)
+const documents = ref(false)
 const options = [
   [
     { name: '复制网站链接', icon: 'link' }
   ]
 ]
+const documentsMD = ref("")
 
 
 const logout = ()=>{
@@ -143,6 +145,10 @@ onMounted(()=>{
   }else{
     status.value = true
   }
+
+  const docMD:string = localStorage.getItem("documents") || ""
+  documentsMD.value = docMD
+  console.log(docMD)
 })
 </script>
 
@@ -240,6 +246,10 @@ onMounted(()=>{
       </van-cell>
     </van-cell-group>
   </van-action-sheet>
+  <van-action-sheet v-model:show="documents" title="语法文档">
+    <v-md-preview text="#### Telegram Bot HTML/Markdown语法支持"></v-md-preview>
+    <v-md-preview :text="documentsMD"></v-md-preview>
+  </van-action-sheet>
 
   <van-cell-group inset style="margin-top: 20px;" class="set-title">
     <van-cell title="当前登录状态(Current login status)">
@@ -268,7 +278,7 @@ onMounted(()=>{
   </van-cell-group>
 
   <van-cell-group inset style="margin-top: 20px;" class="set-title">
-    <van-cell title="HTML/Markdown语法支持" is-link />
+    <van-cell title="HTML/Markdown语法支持文档" is-link @click="documents = true"/>
   </van-cell-group>
 
   <van-cell-group inset style="margin-top: 20px;" class="set-title">

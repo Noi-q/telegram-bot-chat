@@ -1,5 +1,3 @@
-# Telegram Bot HTML/Markdown语法支持
-
 ```html
 <b>bold</b>, <strong>bold</strong>
 <i>italic</i>, <em>italic</em>
@@ -13,25 +11,4 @@
 <code>inline fixed-width code</code>
 <pre>pre-formatted fixed-width code block</pre>
 <pre><code class="language-python">pre-formatted fixed-width code block written in the Python programming language</code></pre>
-```
-
-
-```markdown
-*bold \*text*
-_italic \*text_
-__underline__
-~strikethrough~
-*bold _italic bold ~italic bold strikethrough~ __underline italic bold___ bold*
-[inline URL](http://www.example.com/)
-[inline mention of a user](tg://user?id=123456789)
-`inline fixed-width code`
-
-```
-pre-formatted fixed-width code block
-```
-
-```python
-pre-formatted fixed-width code block written in the Python programming language
-```
-
 ```

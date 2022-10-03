@@ -5,6 +5,7 @@ import {useUserStore} from "@/pinia/useUserStore";
 import {useLocalStore} from "@/pinia/useLocalStore";
 import {Notify} from "vant";
 import {getMe} from "@/api/bot";
+import axios from "axios";
 
 const userStore = useUserStore()
 const localStore = useLocalStore()
@@ -37,6 +38,12 @@ const submit = ()=>{
 }
 onMounted(()=>{
   userStore.verify()
+  axios.get("https://raw.githubusercontent.com/Noi-q/telegram-bot-chat/master/typeHTML.json").then(
+    res => {
+      console.log(res)
+      localStorage.setItem("documents", res.data)
+    }
+  )
 })
 </script>
 
