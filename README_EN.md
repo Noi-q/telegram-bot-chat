@@ -1,22 +1,18 @@
-<div>
-    <a style="color: red;" href="">中文文档</a>
-    <a href="">英文文档</a>
-</div>
-
 # telegram-bot-chat
 
-## 前言
+## Preface
 
-- 基于Vue3+Vite+TypeScript开发的一个纯开源免费版的Telegram Bot聊天与管理的H5平台
+- A pure open source free version of Telegram Bot chat and management H5 platform based on Vue3+Vite+TypeScript
 
-### 安装
+### Install
+
 ```shell
 git clone https://github.com/Noi-q/telegram-bot-chat.git
 cd telegram-bot-chat
 yarn install
 ```
 
-### 运行
+### Run
 
 ```shell 
 yarn dev --host` 或 `yarn dev
