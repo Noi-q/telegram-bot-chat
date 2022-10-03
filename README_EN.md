@@ -1,6 +1,6 @@
 <div>
     <a href="https://github.com/Noi-q/telegram-bot-chat/blob/master/README.md">中文文档</a>
-    <a href="https://github.com/Noi-q/telegram-bot-chat/blob/master/README_EN.md">英文文档</a>
+    <a href="https://github.com/Noi-q/telegram-bot-chat/blob/master/README_EN.md" style="color: red;">英文文档</a>
 </div>
 
 # telegram-bot-chat
