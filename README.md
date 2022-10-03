@@ -25,4 +25,4 @@ yarn dev --host` 或 `yarn dev
 ```
 
 
-采用<a href="https://github.com/Noi-q/telegram-bot-chat/blob/master/LICENSE">MIT</a>协议
+采用<a href="https://github.com/Noi-q/telegram-bot-chat/blob/master/LICENSE"> MIT </a>协议
