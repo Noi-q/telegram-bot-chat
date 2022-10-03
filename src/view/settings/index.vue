@@ -64,6 +64,7 @@ const logout = ()=>{
     showCancelButton:true
   }).then(()=>{
     localStorage.removeItem("token")
+    localStorage.removeItem("documents")
     userStore.token = ""
     router.push({
       path:"/login"
