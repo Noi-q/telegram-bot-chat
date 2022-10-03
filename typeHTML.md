@@ -6,11 +6,8 @@
   [inline URL](http://www.example.com/)
   [inline mention of a user](tg://user?id=123456789)
   `inline fixed-width code`
-  
-  ```
-  pre-formatted fixed-width code block
-  pre-formatted fixed-width code block written in the Python programming language
-  ```
+  ```pre-formatted fixed-width code block```
+  ```pre-formatted fixed-width code block written in the Python programming language```
 ```
 
 ```html
