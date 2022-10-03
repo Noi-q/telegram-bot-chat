@@ -268,6 +268,10 @@ onMounted(()=>{
   </van-cell-group>
 
   <van-cell-group inset style="margin-top: 20px;" class="set-title">
+    <van-cell title="HTML/Markdown语法支持" is-link />
+  </van-cell-group>
+
+  <van-cell-group inset style="margin-top: 20px;" class="set-title">
     <van-cell title="分享应用(Sharing apps)" is-link @click="handleShare"/>
     <van-cell title="隐私政策(Privacy Policy)" is-link @click="handlePrivacy"/>
     <van-cell title="关于作者(About the author)" is-link @click="handleAuthor"/>

@@ -91,6 +91,8 @@ class RequestHttp {
       case 409:
         // alert("123")
         break;
+      case 400:
+        break;
       default:
         Dialog({ message: "token失效, 点击重新登录" }).then(
           res=>{

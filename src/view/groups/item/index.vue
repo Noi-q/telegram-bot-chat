@@ -3,6 +3,11 @@ import {useRouter, useRoute} from "vue-router";
 import {onMounted, ref} from "vue";
 import {groupAllInfoFilter} from "@/tools/data-filter"
 import {useLocalStore} from "@/pinia/useLocalStore";
+import {storeToRefs} from "pinia";
+import {sendGroupMessage} from "@/api/message";
+import {Dialog, Notify, Toast} from 'vant';
+
+
 
 const router = useRouter()
 const route = useRoute()
@@ -10,6 +15,21 @@ const localStore = useLocalStore()
 const title = ref()
 const content = ref()
 const sendMessage = ref()
+const {token} = storeToRefs(localStore)
+const showPopover = ref(false)
+const actions = ref([
+  {
+    text:"原文本"
+  },
+  {
+    text:"markdown"
+  },
+  {
+    text:"html"
+  }
+])
+const popoverType = ref("选择类型")
+const mode = ref("")
 
 
 const onClickLeft = ()=>{
@@ -30,6 +50,37 @@ const formatDate = (item:number)=>{
   let s:any = date.getSeconds()
   s = s < 10 ? ('0' + s) : s
   return y + '-' + MM + '-' + d + ' ' + h + ":" + m + ":" + s
+}
+
+const onSelect = (action:any)=>{
+  popoverType.value = action.text
+  mode.value = action.text
+  return Toast(action.text)
+}
+
+const submit = ()=>{
+  sendGroupMessage(token.value, {
+    chat_id:Number(route.query.id),
+    parse_mode:mode.value,
+    text:sendMessage.value
+  }).then(
+    (res:any)=>{
+      if(res.ok === true){
+        Notify({ type: 'success', message: '发送成功' });
+      }
+      sendMessage.value = ""
+    },
+    (err:any)=>{
+      if(err === 400){
+        Dialog({
+          title:"错误提示",
+          message:"您输入的内容不符合Telegram官方模板语法",
+          confirmButtonColor:"red",
+          allowHtml:true
+        })
+      }
+    }
+  )
 }
 onMounted(()=>{
   title.value = route.query.title
@@ -89,7 +140,12 @@ onMounted(()=>{
       show-word-limit
     >
       <template #button>
-        <van-button type="primary">发送</van-button>
+        <van-popover placement="top" v-model:show="showPopover" :actions="actions" @select="onSelect">
+          <template #reference>
+            <van-button type="primary">{{popoverType}}</van-button>
+          </template>
+        </van-popover>
+        <van-button style="margin-left: 2px;" type="primary" @click="submit">发送</van-button>
       </template>
     </van-field>
   </div>
