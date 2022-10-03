@@ -1,5 +1,5 @@
 <div>
-    <a href="https://github.com/Noi-q/telegram-bot-chat/blob/master/README.md" style="color: red;">中文文档</a>
+    <a href="https://github.com/Noi-q/telegram-bot-chat/blob/master/README.md" style="color: red;">中文文档</a>|
     <a href="https://github.com/Noi-q/telegram-bot-chat/blob/master/README_EN.md">English Documents</a>
 </div>
 
