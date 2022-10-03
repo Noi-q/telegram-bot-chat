@@ -38,12 +38,12 @@ const submit = ()=>{
 }
 onMounted(()=>{
   userStore.verify()
-  axios.get("https://raw.githubusercontent.com/Noi-q/telegram-bot-chat/master/typeHTML.json").then(
-    res => {
-      console.log(res)
-      localStorage.setItem("documents", res.data)
-    }
-  )
+  // axios.get("https://raw.githubusercontent.com/Noi-q/telegram-bot-chat/master/typeHTML.json").then(
+  //   res => {
+  //     console.log(res)
+  //     localStorage.setItem("documents", JSON.stringify(res.data))
+  //   }
+  // )
 })
 </script>
 

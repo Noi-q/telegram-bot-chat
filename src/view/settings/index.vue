@@ -48,13 +48,11 @@ const showShare = ref(false)
 const showAuthor = ref(false)
 const robotInfo = ref(false)
 const connectStatus = ref(false)
-const documents = ref(false)
 const options = [
   [
     { name: '复制网站链接', icon: 'link' }
   ]
 ]
-const documentsMD = ref("")
 
 
 const logout = ()=>{
@@ -64,7 +62,6 @@ const logout = ()=>{
     showCancelButton:true
   }).then(()=>{
     localStorage.removeItem("token")
-    localStorage.removeItem("documents")
     userStore.token = ""
     router.push({
       path:"/login"
@@ -132,7 +129,6 @@ onMounted(()=>{
       connectStatus.value = false
     }
   )
-
   const body:string = localStorage.getItem("body") || ""
   if(body === ""){
     colorOptions.value.value = "black"
@@ -147,9 +143,10 @@ onMounted(()=>{
     status.value = true
   }
 
-  const docMD:string = localStorage.getItem("documents") || ""
-  documentsMD.value = docMD
-  console.log(docMD)
+  // ->解析有问题 @!!
+  // const jsonDoc = JSON.parse(docMD)
+  // documentsMD.value = jsonDoc.markdown
+  // <-解析有问题 @!!
 })
 </script>
 
@@ -279,7 +276,7 @@ onMounted(()=>{
   </van-cell-group>
 
   <van-cell-group inset style="margin-top: 20px;" class="set-title">
-    <van-cell title="HTML/Markdown语法支持文档" is-link @click="documents = true"/>
+    <van-cell title="HTML/Markdown语法支持文档" is-link url=""/>
   </van-cell-group>
 
   <van-cell-group inset style="margin-top: 20px;" class="set-title">
