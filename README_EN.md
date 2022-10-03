@@ -21,7 +21,7 @@ yarn install
 ### Run
 
 ```shell 
-yarn dev --host` 或 `yarn dev
+yarn dev --host` or `yarn dev
 ```
 
 
