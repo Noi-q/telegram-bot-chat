@@ -3,7 +3,9 @@ import {getupdates} from "@/api/bot";
 import {onMounted, ref} from "vue";
 import {groupFilter, noticeFilter} from "@/tools/data-filter";
 import {useLocalStore} from "@/pinia/useLocalStore";
+import {useRouter} from "vue-router";
 
+const router = useRouter()
 const localStore = useLocalStore()
 const content = ref()
 const notice = ref()
@@ -28,8 +30,29 @@ const formatDate = (item:number)=>{
   return y + '-' + MM + '-' + d + ' ' + h + ":" + m + ":" + s
 }
 
-const goGroup = (item:object)=>{
+const goGroup = (item:any)=>{
   console.log(item)
+  if(item){
+    if(item.message){
+      router.push({
+        path:"/groups/item",
+        query:{
+          id:item.message.chat.id,
+          title:item.message.chat.title
+        }
+      })
+    }
+    if(item.channel_post){
+      router.push({
+        path:"/groups/item",
+        query:{
+          id:item.channel_post.chat.id,
+          title:item.channel_post.chat.title
+        }
+      })
+    }
+  }
+
 }
 
 const checkNotice = ()=>{
@@ -173,6 +196,7 @@ onMounted(()=>{
         <span v-if="item.message !== undefined">{{item.message.text}}</span>
         <span v-if="item.my_chat_member !== undefined">{{item.my_chat_member.new_chat_member.status}}</span>
         <span v-if="item.channel_post !== undefined">{{item.channel_post.text}}</span>
+        <span v-if="item.channel_post !== undefined">{{item.channel_post.pinned_message.text}}</span>
       </div>
     </template>
     <template #label>

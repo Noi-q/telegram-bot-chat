@@ -47,6 +47,7 @@ const status = ref(false)
 const showShare = ref(false)
 const showAuthor = ref(false)
 const robotInfo = ref(false)
+const connectStatus = ref(false)
 const options = [
   [
     { name: '复制网站链接', icon: 'link' }
@@ -122,6 +123,10 @@ onMounted(()=>{
   getMe(token.value,{}).then(
     (res:any)=>{
       info.value = res.result as infoType
+      connectStatus.value = true
+    },
+    (err:any)=>{
+      connectStatus.value = false
     }
   )
 
@@ -240,6 +245,11 @@ onMounted(()=>{
     <van-cell title="当前登录状态(Current login status)">
       <template #right-icon>
         <div class="tag" :style="{backgroundColor:status === true ? '#07c160' : 'red'}"></div>
+      </template>
+    </van-cell>
+    <van-cell title="当前连接状态(Current connection status)">
+      <template #right-icon>
+        <div class="tag" :style="{backgroundColor:connectStatus === true ? '#07c160' : 'red'}"></div>
       </template>
     </van-cell>
     <van-cell title="机器人信息(Robot information)" is-link @click="robotInfo=true" />

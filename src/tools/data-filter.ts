@@ -56,4 +56,26 @@ const noticeFilter = (data:[])=>{
   return filterData
 }
 
-export {filter,groupFilter,noticeFilter}
+const groupAllInfoFilter = (data:[], id: number)=>{
+  const filterData:any[] = []
+  data.filter((e?:any)=>{
+    if(e.message){
+      if(e.message.chat.type !== "private"){
+        if(e.message.chat.id === id){
+          filterData.push(e)
+        }
+      }
+    }else if(e.channel_post){
+      if(e.channel_post.chat.type !== "private"){
+        if(e.channel_post.chat.id === id){
+          if(e.channel_post.text){
+            filterData.push(e)
+          }
+        }
+      }
+    }
+  })
+  return filterData
+}
+
+export {filter,groupFilter,noticeFilter,groupAllInfoFilter}

@@ -17,7 +17,7 @@ interface ResultData<T = any> extends Result {
 const URL: string = 'https://api.telegram.org'
 
 enum RequestEnums {
-  TIMEOUT = 20000,
+  TIMEOUT = 5000,
   OVERDUE = 600, // 登录失效
   FAIL = 999, // 请求失败
   SUCCESS = 200, // 请求成功
@@ -76,7 +76,6 @@ class RequestHttp {
         if(response){
           this.handleCode(response.status)
         }
-        console.log(response)
         return Promise.reject(response?.status)
       }
     )
@@ -88,6 +87,9 @@ class RequestHttp {
         break;
       case 0:
         // Dialog({message:"请检查网络!"})
+        break;
+      case 409:
+        // alert("123")
         break;
       default:
         Dialog({ message: "token失效, 点击重新登录" }).then(

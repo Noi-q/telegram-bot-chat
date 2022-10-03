@@ -21,6 +21,10 @@ const syncRoutes:RouteRecordRaw[] = [
         component:()=>import("@/view/settings/botInfo/index.vue")
       }
     ]
+  },
+  {
+    path:"/groups/item",
+    component:()=>import("@/view/groups/item/index.vue")
   }
 ]
 
