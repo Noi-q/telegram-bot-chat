@@ -94,6 +94,10 @@ const botInfo = ()=>{
   })
 }
 
+const notOpen = ()=>{
+  Dialog({message:"暂未开放"})
+}
+
 async function setColor(){
   const body:string = await localStorage.getItem("body") || ""
   document.body.style.backgroundColor = body
@@ -244,10 +248,10 @@ onMounted(()=>{
       </van-cell>
     </van-cell-group>
   </van-action-sheet>
-  <van-action-sheet v-model:show="documents" title="语法文档">
-    <v-md-preview text="#### Telegram Bot HTML/Markdown语法支持"></v-md-preview>
-    <v-md-preview :text="documentsMD"></v-md-preview>
-  </van-action-sheet>
+<!--  <van-action-sheet v-model:show="documents" title="语法文档">-->
+<!--    <v-md-preview text="#### Telegram Bot HTML/Markdown语法支持"></v-md-preview>-->
+<!--    <v-md-preview :text="documentsMD"></v-md-preview>-->
+<!--  </van-action-sheet>-->
 
   <van-cell-group inset style="margin-top: 20px;" class="set-title">
     <van-cell title="当前登录状态(Current login status)">
@@ -269,14 +273,14 @@ onMounted(()=>{
   </van-cell-group>
 
   <van-cell-group inset style="margin-top: 20px;" class="set-title">
-    <van-cell title="导出记录" is-link />
-    <van-cell title="指令列表" is-link />
-    <van-cell title="导入插件" is-link />
-    <van-cell title="插件列表" is-link />
+    <van-cell title="导出记录" is-link @click="notOpen" />
+    <van-cell title="指令列表" is-link @click="notOpen" />
+    <van-cell title="导入插件" is-link @click="notOpen" />
+    <van-cell title="插件列表" is-link @click="notOpen" />
   </van-cell-group>
 
   <van-cell-group inset style="margin-top: 20px;" class="set-title">
-    <van-cell title="HTML/Markdown语法支持文档" is-link url=""/>
+    <van-cell title="HTML/Markdown语法支持文档" is-link url="https://github.com/Noi-q/telegram-bot-chat/blob/master/typeHTML.md"/>
   </van-cell-group>
 
   <van-cell-group inset style="margin-top: 20px;" class="set-title">

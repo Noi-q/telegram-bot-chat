@@ -1,6 +1,6 @@
 <script lang="ts" setup>
 import NavBar from "./navBar.vue";
-import Item from "../../view/item/index.vue"
+import Item from "../../view/chat/item/index.vue"
 </script>
 
 <template>

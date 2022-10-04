@@ -3,12 +3,11 @@ import itemLayout from "../layout/item/index.vue"
 import navBar from "@/components/navBar.vue"
 const syncRoutes:RouteRecordRaw[] = [
   {
-    path:"/user",
-    component:itemLayout,
+    path:"/chat/item",
     children:[
       {
-        path:"/user",
-        component:()=>import("../view/chat/index.vue")
+        path:"/chat/item",
+        component:()=>import("@/view/chat/item/index.vue")
       }
     ]
   },

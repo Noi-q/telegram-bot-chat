@@ -1,15 +1,17 @@
 <script lang="ts" setup>
 import {ref, onMounted} from "vue";
 import {getupdates} from "@/api/bot";
-import {RouteParamsRaw, useRouter} from "vue-router";
+import {useRouter} from "vue-router";
 import {useLocalStore} from "@/pinia/useLocalStore";
 import {filter} from "@/tools/data-filter";
+import {Toast} from "vant";
 
 
 const localStore = useLocalStore()
 const router = useRouter()
 const content = ref()
 const loading = ref(true)
+const empty = ref(false)
 
 const formatDate = (item:number)=>{
   let date = new Date(item * 1000)
@@ -27,18 +29,37 @@ const formatDate = (item:number)=>{
   return y + '-' + MM + '-' + d + ' ' + h + ":" + m + ":" + s
 }
 
-const goChat = (item:RouteParamsRaw)=>{
+const goChat = (item:any)=>{
   router.push({
-    path:"/user",
+    path:"/chat/item",
     query:{
-      data:JSON.stringify(item)
+      id:item.message.from.id,
+      name:item.message.from.first_name
     }
   })
 }
 
+const refresh = ()=>{
+  const token = localStorage.getItem("token") || ""
+  getupdates(`${token}`,{}).then(
+    (res:any) => {
+      const value = filter(res.result)
+      content.value = value
+      loading.value = false
+      localStore.setChatData(res.result)
+      if(res.ok === true){
+        Toast("刷新成功!")
+      }
+    },
+    (err:any) => {
+      return err
+    }
+  )
+}
+
 onMounted(()=>{
   const data = localStore.getChatData()
-  const token = localStorage.getItem("token")
+  const token = localStorage.getItem("token") || ""
   if(data === ""){
     getupdates(`${token}`,{}).then(
       (res:any) => {
@@ -46,6 +67,11 @@ onMounted(()=>{
         content.value = value
         loading.value = false
         localStore.setChatData(res.result)
+        if(content.value.length === 0){
+          empty.value = true
+        }else {
+          empty.value = false
+        }
       },
       (err:any) => {
         return err
@@ -55,8 +81,12 @@ onMounted(()=>{
     loading.value = false
     const value = filter(JSON.parse(data))
     content.value = value
+    if(content.value.length === 0){
+      empty.value = true
+    }else {
+      empty.value = false
+    }
   }
-
 })
 </script>
 
@@ -64,6 +94,9 @@ onMounted(()=>{
   <div v-show="loading" class="loading">
     <van-loading type="spinner" />
   </div>
+  <van-empty v-if="empty" image="error" description="暂无消息">
+    <van-button type="success" @click="refresh">点击刷新</van-button>
+  </van-empty>
   <van-cell
     v-for="item in content"
     :key="item"

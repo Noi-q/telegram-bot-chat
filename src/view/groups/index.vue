@@ -1,9 +1,10 @@
 <script lang="ts" setup>
 import {getupdates} from "@/api/bot";
 import {onMounted, ref} from "vue";
-import {groupFilter, noticeFilter} from "@/tools/data-filter";
+import {filter, groupFilter, noticeFilter} from "@/tools/data-filter";
 import {useLocalStore} from "@/pinia/useLocalStore";
 import {useRouter} from "vue-router";
+import {Toast} from "vant";
 
 const router = useRouter()
 const localStore = useLocalStore()
@@ -13,6 +14,7 @@ const noticeInfo = ref()
 const loading = ref(true)
 const showNotice = ref(false)
 const showNoticeInfo = ref(false)
+const empty = ref(false)
 
 const formatDate = (item:number)=>{
   let date = new Date(item * 1000)
@@ -31,7 +33,6 @@ const formatDate = (item:number)=>{
 }
 
 const goGroup = (item:any)=>{
-  console.log(item)
   if(item){
     if(item.message){
       router.push({
@@ -64,6 +65,25 @@ const checkNoticeInfo = (item:object)=>{
   showNoticeInfo.value = true
 }
 
+const refresh = ()=>{
+  const data = localStore.getChatData()
+  const token = localStorage.getItem("token")
+  getupdates(`${token}`,{}).then(
+    (res:any) => {
+      content.value = groupFilter(JSON.parse(data))
+      notice.value = noticeFilter(JSON.parse(data))
+      loading.value = false
+      localStore.setChatData(res.result)
+      if(res.ok === true){
+        Toast("刷新成功!")
+      }
+    },
+    (err:any) => {
+      return err
+    }
+  )
+}
+
 onMounted(()=>{
   const data = localStore.getChatData()
   const token = localStorage.getItem("token")
@@ -92,6 +112,9 @@ onMounted(()=>{
   <div v-show="loading" class="loading">
     <van-loading type="spinner" />
   </div>
+  <van-empty v-if="empty" image="error" description="暂无消息">
+    <van-button type="success" @click="refresh">点击刷新</van-button>
+  </van-empty>
   <van-popup v-model:show="showNoticeInfo" position="top" :style="{ height: '60%' }" >
     <div class="notice-info">
       <ul>

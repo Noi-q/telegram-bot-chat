@@ -72,26 +72,29 @@ router.beforeEach((to, from)=>{
       return true
     }
   }
-  if(to.path === "/chat" || to.path === "/settings" || to.path === "/groups"){
-    updateMessage(token).then(
-      res => {
-        localStorage.setItem("data", JSON.stringify(res.result))
-      },
-      err => {
-        if(err === "404"){
-          Dialog({
-            title:"提示",
-            message:"token失效，点击重新登录!",
-            showCancelButton:false
-          }).then(()=>{
-            router.push({
-              path:"/login"
-            })
-          }).catch(()=>{})
+  if(token !== "" || undefined || null) {
+    if(to.path === "/chat" || to.path === "/settings" || to.path === "/groups"){
+      updateMessage(token).then(
+        res => {
+          localStorage.setItem("data", JSON.stringify(res.result))
+        },
+        err => {
+          if(err === "404"){
+            Dialog({
+              title:"提示",
+              message:"token失效，点击重新登录!",
+              showCancelButton:false
+            }).then(()=>{
+              router.push({
+                path:"/login"
+              })
+            }).catch(()=>{})
+          }
         }
-      }
-    )
+      )
+    }
   }
+
 })
 
 export default router

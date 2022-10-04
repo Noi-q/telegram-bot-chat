@@ -10,6 +10,11 @@ namespace Message {
     text: string
     parse_mode: string
   }
+  export interface sendUserMessage {
+    chat_id: number
+    text: string
+    parse_mode: string
+  }
 }
 
 // 发送消息
@@ -18,5 +23,9 @@ export const sendMessage = (token: string, params:Message.SendMessage) =>{
 }
 // 发送群组消息
 export const sendGroupMessage = (token:string, params:Message.sendGroupMessage)=>{
+  return Axios.post("/bot" + token + "/sendMessage" + `?chat_id=${params.chat_id}&text=${params.text}&parse_mode=${params.parse_mode}`)
+}
+// 发送用户消息
+export const sendUserMessage = (token:string, params:Message.sendUserMessage)=>{
   return Axios.post("/bot" + token + "/sendMessage" + `?chat_id=${params.chat_id}&text=${params.text}&parse_mode=${params.parse_mode}`)
 }

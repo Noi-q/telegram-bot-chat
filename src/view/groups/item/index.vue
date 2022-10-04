@@ -54,7 +54,11 @@ const formatDate = (item:number)=>{
 
 const onSelect = (action:any)=>{
   popoverType.value = action.text
-  mode.value = action.text
+  if(action.id === 1){
+    mode.value = ""
+  }else {
+    mode.value = action.text
+  }
   return Toast(action.text)
 }
 
@@ -86,7 +90,6 @@ onMounted(()=>{
   title.value = route.query.title
   const data = localStore.getChatData()
   content.value = groupAllInfoFilter(JSON.parse(data), Number(route.query.id))
-  console.log(content.value)
 })
 </script>
 

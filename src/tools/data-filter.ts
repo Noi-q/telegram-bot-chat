@@ -1,4 +1,5 @@
-import {item} from "@/tools/groups-item";
+import {item, userItem} from "@/tools/filter-item";
+
 
 const filter = (data:[])=>{
   const filterData:any = []
@@ -17,7 +18,7 @@ const filter = (data:[])=>{
     }
 
   })
-  return filterData
+  return userItem(filterData)
 }
 
 const groupFilter = (data:[])=>{
@@ -78,4 +79,18 @@ const groupAllInfoFilter = (data:[], id: number)=>{
   return filterData
 }
 
-export {filter,groupFilter,noticeFilter,groupAllInfoFilter}
+const userAllInfoFilter = (data:[], id: number)=>{
+  const filterData:any[] = []
+  data.filter((e?:any)=>{
+    if(e.message){
+      if(e.message.chat.type === "private"){
+        if(e.message.from.id === id){
+          filterData.push(e)
+        }
+      }
+    }
+  })
+  return filterData
+}
+
+export {filter,groupFilter,noticeFilter,groupAllInfoFilter,userAllInfoFilter}
